@@ -30,6 +30,23 @@ class CounterCubit extends Cubit<int> {
   void kurangData() {
     emit(state - 1);
   }
+
+  // Observer
+  // perubahann
+  // on error
+
+  @override
+  void onChange(Change<int> change) {
+    super.onChange(change);
+    print(change);
+  }
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    super.onError(error, stackTrace);
+    print(error);
+    print(stackTrace);
+  }
 }
 
 class HomePage extends StatelessWidget {
@@ -48,27 +65,17 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           StreamBuilder(
+            initialData: myCounter.initialData,
             stream: myCounter.stream,
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                          child: Text(
-                            "Loading...",
-                            style: TextStyle(
-                              fontSize: 50,
-                            ),
-                          ),
-                        );
-              } else {
-                return Center(
-                        child: Text(
-                          "${snapshot.data}",
-                          style: const TextStyle(
-                            fontSize: 50,
-                          ),
-                        ),
-                      );
-              }
+              return Center(
+                child: Text(
+                  "${snapshot.data}",
+                  style: const TextStyle(
+                    fontSize: 50,
+                  ),
+                ),
+              );
             }
           ),
           const SizedBox(height: 20,),
