@@ -13,7 +13,6 @@ class Counter extends Cubit<int> {
     emit(state - 1);
   }
 
-
   // Observer
   @override
   void onChange(Change<int> change) {
